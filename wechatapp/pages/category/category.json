@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "分类",
+	"usingComponents": {
+		"nav-bar": "/components/nav-bar/dist/index"
+	}
+}

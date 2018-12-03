@@ -1,0 +1,55 @@
+<!--pages/product-list/product-list.wxml-->
+
+<!--**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */-->
+
+<import src="/vendor/ZanUI/loadmore/index.wxml" />
+<import src="/vendor/ZanUI/toptips/index.wxml" />
+<import src="/templates/product-list.wxml" />
+<import src="/templates/login-popup.wxml" />
+<import src="/templates/nav-bar.wxml" />
+
+<nav-bar custom-style="{{ {backgroundColor:'#96588a'} }}">
+    <view slot="content" class="nav-bar-wrapper-wrap">
+        <template is="nav-bar" data="{{pageTitle, navNarHeight: NAV_BAR_HEIGHT, backBtn: true}}"></template>
+    </view>
+    <view slot="placeholder" style="height:{{NAV_HEIGHT}}"></view>
+</nav-bar>
+
+<view wx:if="{{products != null}}" class="container">
+
+    <!-- W2W Extension, Name: w2w-products-filter-and-orderby, Code: filterBar -->
+
+<!-- W2W Extension, Name: w2w-products-filter-and-orderby, Code: filterBar -->
+
+    <!-- 侧边按钮开始 -->
+    <!-- W2W Extension, Name: w2w-products-favor, Code: editFavorBtn -->
+
+<!-- W2W Extension, Name: w2w-products-favor, Code: editFavorBtn -->
+    <button class="btn side-btn cart-btn" bindtap="goCart">
+        <image src="/images/cart_light.svg"></image>
+        <text class="cart-quantity">{{cart_quantity}}</text>
+    </button>
+    <button class="btn side-btn go-top-btn" bindtap="goTop">
+        <image src="/images/top_light.svg"></image>
+    </button>
+    <!-- 侧边按钮结束 -->
+
+    <block wx:if="{{bottomStyle == 'empty'}}">
+        <view class="empty-product center">
+            <text>还没有相关产品</text>
+        </view>
+    </block>
+    <block wx:else>
+        <template is="product-list" data="{{inEdit, selectedProducts, products, currency}}"></template>
+
+        <template wx:if="{{bottomStyle == 'nomore'}}" is="zan-loadmore" data="{{nomore:true}}"></template>
+    </block>
+
+    <template is="login-popup" data="{{show: isLoginPopup, userInfo: userInfo}}"></template>
+    <template is="zan-toptips" data="{{ zanTopTips, top: NAV_HEIGHT }}"></template>
+</view>

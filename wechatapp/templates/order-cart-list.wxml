@@ -1,0 +1,42 @@
+<!--templates/order-cart-list.wxml-->
+
+<!--**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */-->
+
+<template name="order-cart-list">
+    <view class="cart-list">
+        <block wx:for="{{line_items}}" wx:key="">
+
+            <view class="cart-item" data-id="{{item.single_product_id}}" data-name="{{item.name}}" bindtap="goProductDetail">
+                <view class="product-image">
+                    <image src="{{item.image[0].shop_single}}" mode="widthFix"></image>
+                </view>
+                <view class="cart-detail-wrapper">
+                    <view class="cart-detail">
+                        <text class="product-title">{{item.name}}</text>
+                        <!-- 已选属性 -->
+                        <view wx:if="{{item.meta.length > 0}}" class="choose-wrapper">
+                            <block wx:for="{{item.meta}}" wx:key="">
+                                <text>{{item.value}}</text>
+                            </block>
+                        </view>
+                    </view>
+                    <view class="cart-quantity">
+                        <text>× {{item.quantity}}</text>
+                    </view>
+                </view>
+                <view class="cart-item-price">
+                    <view class="line-total">
+                        <text class="currency">{{currency}}</text>
+                        <text class="price">{{item.subtotal}}</text>
+                    </view>
+                </view>
+            </view>
+
+        </block>
+    </view>
+</template>

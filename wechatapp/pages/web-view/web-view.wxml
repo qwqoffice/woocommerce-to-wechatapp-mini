@@ -1,0 +1,19 @@
+<!--pages/web-view/web-view.wxml-->
+
+<!--**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */-->
+
+<import src="/templates/nav-bar.wxml" />
+
+<nav-bar custom-style="{{ {backgroundColor:'#96588a'} }}">
+    <view slot="content" class="nav-bar-wrapper-wrap">
+        <template is="nav-bar" data="{{pageTitle, navNarHeight: NAV_BAR_HEIGHT, backBtn: true}}"></template>
+    </view>
+    <view slot="placeholder" style="height:{{NAV_HEIGHT}}"></view>
+</nav-bar>
+
+<web-view src="{{src}}"></web-view>

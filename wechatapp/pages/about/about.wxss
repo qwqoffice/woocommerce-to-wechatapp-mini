@@ -1,0 +1,54 @@
+/* pages/about/about.wxss */
+
+/**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */
+
+.default-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logo image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.logo .version {
+    margin-top: 10px;
+}
+
+.logo .version text {
+    font-size: 16px;
+}
+
+.intro, .copyright {
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.intro text {
+    padding: 5px 0;
+    word-break: initial;
+}
+
+.copyright {
+    color: #999;
+    align-items: center;
+    font-size: 12px;
+	margin-top: 100px;
+    padding: 30px 0;
+}

@@ -1,0 +1,45 @@
+<!--templates/product-gird.wxml-->
+
+<!--**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */-->
+
+<import src="product-price.wxml" />
+
+<template name="product-gird">
+    <view class="product">
+        <view class="product-inner">
+
+            <!-- W2W Extension, Name: w2w-products-favor, Code: selectMask -->
+
+<!-- W2W Extension, Name: w2w-products-favor, Code: selectMask -->
+
+            <view class="product-main" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="goProductDetail">
+
+                <view class="product-image-wrapper">
+                    <image mode="widthFix" class="product-image" src="{{item.images[0].shop_single}}"></image>
+                    <block wx:if="{{item.type != 'variable' && ! item.in_stock}}">
+                        <text class="outstock">缺货</text>
+                    </block>
+                    <block wx:elif="{{item.on_sale}}">
+                        <text class="onsale">促销</text>
+                    </block>
+                </view>
+
+                <view class="product-detail">
+                    <text class="product-title">{{item.name}}</text>
+                    <template is="product-price" data="{{product: item, currency: currency}}"></template>
+                </view>
+
+            </view>
+
+            <view class="cart">
+                <button class="add-to-cart" size="mini" data-id="{{item.id}}" data-name="{{item.name}}" data-type="{{item.type}}" data-in-stock="{{item.in_stock}}" bindtap="addToCart">{{item.type == 'variable' ? '选择选项' : '加入购物车'}}</button>
+            </view>
+
+        </view>
+    </view>
+</template>

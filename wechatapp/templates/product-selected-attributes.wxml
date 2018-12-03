@@ -1,0 +1,38 @@
+<!--templates/product-selected-attributes.wxml-->
+
+<!--**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */-->
+
+<template name="product-selected-attributes">
+    <!-- 已选择全部 -->
+    <block wx:if="{{selectedAllVariation}}">
+        <view class="choose-wrapper">
+            <text class="choose-tip">已选</text>
+            <block wx:for="{{selectedAttributes}}" wx:for-index="selected_attribute_index" wx:for-item="selected_attribute" wx:key="">
+                <block wx:for="{{allAttributes}}" wx:for-item="attribute" wx:key="">
+                    <block wx:for="{{attribute.options}}" wx:for-item="option" wx:key="">
+                        <block wx:if="{{selected_attribute.option == undefined}}">
+                            <text wx:if="{{selected_attribute_index == attribute.slug && selected_attribute == option.slug }}">{{option.name}}</text>
+                        </block>
+                        <block wx:else>
+                            <text wx:if="{{selected_attribute_index == attribute.slug && selected_attribute.option == option.slug }}">{{option.name}}</text>
+                        </block>
+                    </block>
+                </block>
+            </block>
+        </view>
+    </block>
+    <!-- 有部分未选 -->
+    <block wx:else>
+        <view class="choose-wrapper">
+            <text class="choose-tip">请选择</text>
+            <block wx:for="{{allAttributes}}" wx:key="">
+                <text wx:if="{{item.variation == true && selectedAttributes[item.slug] == undefined }}">"{{item.name}}"</text>
+            </block>
+        </view>
+    </block>
+</template>

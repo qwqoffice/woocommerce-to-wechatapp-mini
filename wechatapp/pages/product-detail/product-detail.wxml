@@ -1,0 +1,319 @@
+<!--pages/product-detail/product-detail.wxml-->
+
+<!--**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */-->
+
+<import src="/vendor/ZanUI/stepper/index.wxml" />
+<import src="/vendor/ZanUI/tab/index.wxml" />
+<import src="/vendor/ZanUI/toptips/index.wxml" />
+<!--<import src="/vendor/wxParse/wxParse.wxml" />-->
+<import src="/templates/product-price.wxml" />
+<import src="/templates/product-selected-attributes.wxml" />
+<import src="/templates/product-list.wxml" />
+<import src="/templates/login-popup.wxml" />
+<import src="/templates/nav-bar.wxml" />
+
+<nav-bar custom-style="{{ {backgroundColor:'#96588a'} }}">
+    <view slot="content" class="nav-bar-wrapper-wrap">
+        <template is="nav-bar" data="{{pageTitle, navNarHeight: NAV_BAR_HEIGHT, backBtn: true}}"></template>
+    </view>
+    <view slot="placeholder" style="height:{{NAV_HEIGHT}}"></view>
+</nav-bar>
+
+<view wx:if="{{product == false}}" class="empty-product center">
+    <image src="/images/sorry.svg"></image>
+    <text>产品不存在或已下架</text>
+    <button class="go-shopping" bindtap="goShopping">随便逛逛</button>
+</view>
+<view wx:elif="{{product != null}}" class="container product-detail">
+
+    <!-- 产品画廊开始 -->
+    <view class="product-gallery">
+        <swiper class="gallery" indicator-dots="{{product.images.length > 1 ? 'true' : false}}" circular="true" autoplay="true" interval="5000" duration="300" bindchange="imageChange" style="height:{{imgHeights[current]}}rpx;">
+            <block wx:for="{{product.images}}" wx:key="">
+                <swiper-item>
+                    <image src="{{item.shop_single}}" data-index="{{index}}" data-src="{{item.shop_single}}" bindtap="galleryViewFullScreen" bindload="imageLoad" style="height:{{imgHeights[current]}}rpx;width:{{imgWidth}}rpx;" />
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    <!-- 产品画廊结束 -->
+
+    <view class="product-detail-wrapper">
+
+        <view class="info-block">
+            <view class="product-title-wrapper">
+                <view class="product-title">
+                    <text>{{product.name}}</text>
+                </view>
+                <view class="share" bindtap="openSharePopup">
+                    <image src="/images/share_light.svg"></image>
+                </view>
+            </view>
+
+
+            <template is="product-price" data="{{product: product, currency: currency, selectedVariation: selectedVariation}}"></template>
+
+            <view class="stock-and-total-sale">
+                <text wx:if="{{totalStock != null}}" class="stock">库存{{totalStock}}件</text>
+                <text class="sales">已售{{product.total_sales}}笔</text>
+            </view>
+
+            <view class="product-short-description">
+                <!--<template is="wxParse" data="{{wxParseData:short_description.nodes}}" />-->
+                <htmltowxml json="{{product.short_description}}" showLoading="{{false}}" padding="10" bindWxmlProductTap="wxmlGoProductDetail" bindWxmlPostTap="wxmlGoPostDetail"></htmltowxml>
+            </view>
+        </view>
+
+        <view class="popup-block">
+            <!-- 选择按钮开始 -->
+            <button wx:if="{{product.type == 'variable'}}" class="choose-variation popup-btn" bindtap="openVariationPopup">
+                <view class="button-main">
+                    <template is="product-selected-attributes" data="{{selectedAttributes: product.default_attributes, allAttributes: product.attributes, selectedAllVariation: selectedAllVariation}}" />
+                </view>
+                <view class="go-popup">
+                    <image src="/images/go_light.svg"></image>
+                </view>
+            </button>
+            <!-- 选择按钮结束 -->
+
+            <!-- 属性按钮开始 -->
+            <button class="popup-btn" bindtap="openAttributePopup">
+                <view class="button-main">产品参数</view>
+                <view class="go-popup">
+                    <image src="/images/go_light.svg"></image>
+                </view>
+            </button>
+            <!-- 属性按钮结束 -->
+        </view>
+
+        <!-- 产品描述和评论 -->
+        <view class="tab-block">
+            <template wx:if="{{productTabList.length > 0}}" is="zan-tab" data="{{ tab: { list: productTabList, selectedId: productTabSelected, scroll: false, height: 0 }, componentId: 'product-tab' }}"></template>
+            <view class="tab-content-wrapper">
+                <!-- 产品描述开始 -->
+                <view class="tab tab-description {{productTabSelected != 'description' ? 'hidden' : ''}}" style="padding-left:{{descriptionPadding}}px;padding-right:{{descriptionPadding}}px">
+                    <block wx:if="{{product.description != ''}}">
+                        <!--<template is="wxParse" data="{{wxParseData:description.nodes}}" />-->
+                        <htmltowxml json="{{product.description}}" showLoading="{{false}}" padding="{{descriptionPadding}}" bindWxmlProductTap="wxmlGoProductDetail" bindWxmlPostTap="wxmlGoPostDetail"></htmltowxml>
+                    </block>
+                    <block wx:else>
+                        <view class="empty-description">暂无详情</view>
+                    </block>
+                </view>
+                <!-- 产品描述结束 -->
+            </view>
+        </view>
+
+        <!-- 相关产品开始 -->
+        <view wx:if="{{product.related_ids.length > 0}}" class="related-products">
+            <view class="center-title">
+                <text>相关产品</text>
+            </view>
+            <template is="product-list" data="{{products:related_products, currency: currency}}" />
+        </view>
+        <!-- 相关产品结束 -->
+
+    </view>
+
+    <!-- 底栏开始 -->
+    <view class="add-cart">
+        <button class="btn" bindtap="goIndex">
+            <image src="/images/home_light.svg"></image>
+            <text>首页</text>
+        </button>
+        <!-- W2W Extension, Name: w2w-products-favor, Code: favorButton -->
+
+<!-- W2W Extension, Name: w2w-products-favor, Code: favorButton -->
+        <block wx:if="{{! favor}}">
+            <button class="btn cart-btn" bindtap="goCart">
+                <image src="/images/cart_light.svg"></image>
+                <text>购物车</text>
+                <text class="cart-quantity">{{cart_quantity}}</text>
+            </button>
+        </block>
+        <button class="btn" open-type="contact" show-message-card="true" session-from="shop-order-list" send-message-title="商城产品 - {{product.id}}">
+            <image src="/images/service_light.svg"></image>
+            <text>客服</text>
+        </button>
+        <button id="add-to-cart" class="add-cart-btn btn btn-primary" bindtap="detailAddToCart">加入购物车</button>
+    </view>
+    <!-- 底栏结束 -->
+
+    <!-- 可变产品选择开始 -->
+    <view wx:if="{{product.type == 'variable'}}" class="zan-popup zan-popup--bottom variation-popup {{isVariationPopup ? 'zan-popup--show' : ''}}">
+        <!-- 遮罩层 -->
+        <view class="zan-popup__mask" bindtap="closeVariationPopup"></view>
+        <!-- 弹出层内容 -->
+        <view class="zan-popup__container">
+            <view class="popup-wrapper">
+
+                <!-- 产品信息开始 -->
+                <view class="product-info">
+                    <image class="variation-image" src="{{selectedAllVariation ? selectedVariation.image[0].shop_single : product.images[0].shop_single}}" data-src="{{selectedAllVariation ? selectedVariation.image[0].shop_single : product.images[0].shop_single}}" bindtap="variationViewFullScreen"></image>
+                    <view class="product-info-detail">
+                        <template is="product-price" data="{{product: product, currency: currency, selectedVariation: selectedVariation}}"></template>
+
+                        <!-- 可变产品限时促销开始 -->
+                        <view wx:if="{{selectedAllVariation && selectedVariation.on_sale && selectedVariation.date_on_sale_to != ''}}" class="product-onsale-to">
+                            <block wx:if="{{onSaleCountDown.days != 0}}">
+                                <view class="countdown">{{onSaleCountDown.days}}天</view>
+                                <text decode="{{true}}">&nbsp;</text>
+                            </block>
+                            <view class="countdown">{{onSaleCountDown.hours}}</view>
+                            <text>:</text>
+                            <view class="countdown">{{onSaleCountDown.minutes}}</view>
+                            <text>:</text>
+                            <view class="countdown">{{onSaleCountDown.seconds}}</view>
+                        </view>
+                        <!-- 可变产品限时促销结束 -->
+
+                        <view wx:if="{{ ! selectedAllVariation && totalStock != null || ( selectedAllVariation && ( selectedVariation.stock_quantity != null || selectedVariation.stock_quantity == null && ! selectedVariation.in_stock ) ) }}" class="stock-quantity">
+                            <text>库存{{selectedAllVariation ? ( selectedVariation.stock_quantity != null ? selectedVariation.stock_quantity : 0 ) : totalStock}}件</text>
+                        </view>
+                        <template is="product-selected-attributes" data="{{selectedAttributes: product.default_attributes, allAttributes: product.attributes, selectedAllVariation: selectedAllVariation}}" />
+                    </view>
+
+                    <image class="close-btn" src="/images/close.svg" bindtap="closeVariationPopup"></image>
+                </view>
+                <!-- 产品信息结束 -->
+
+                <!-- 可变产品描述开始 -->
+                <view wx:if="{{selectedAllVariation && selectedVariation.description != ''}}" class="product-description">
+                    <text>{{selectedVariation.description}}</text>
+                </view>
+                <!-- 可变产品描述结束 -->
+
+                <!-- 产品选择开始 -->
+                <view class="attribute-group-wrapper">
+
+                    <block wx:for="{{product.attributes}}" wx:for-index="attribute_index" wx:for-item="attribute" wx:key="">
+                        <view wx:if="{{attribute.variation == true}}" class="attribute-group">
+
+                            <view class="attribute-title">{{attribute.name}}</view>
+
+                            <view class="attributes-wrapper">
+                                <block wx:for="{{attribute.options}}" wx:for-index="option_index" wx:for-item="option" wx:key="">
+                                    <label class="variation {{option.slug == product.default_attributes[attribute.slug].option ? 'checked' : ''}} {{option.is_available != false ? '' : 'disabled'}}" data-attriubte="{{attribute.slug}}" data-is-available="{{option.is_available != false ? true : false}}"
+                                        data-old-option="{{product.default_attributes[attribute.slug].option}}" data-option="{{option.slug}}" bindtap="variationChange">
+                                        <text>{{option.name}}</text>
+                                    </label>
+                                </block>
+                            </view>
+
+                        </view>
+                    </block>
+
+                    <view class="attribute-group">
+                        <view class="attribute-title">购买数量</view>
+                        <template is="zan-stepper" data="{{stepper: quantity, min: 1, componentId: 'quantity'}}" />
+                    </view>
+                </view>
+                <!-- 产品选择结束 -->
+
+            </view>
+
+            <button id="popup-add-to-cart" class="confirm btn btn-primary {{! selectedAllVariation ? 'disabled' : ''}}" bindtap="detailAddToCart">确定</button>
+
+        </view>
+    </view>
+    <!-- 可变产品选择结束 -->
+
+    <!-- 产品属性开始 -->
+    <view class="zan-popup zan-popup--bottom attributes-popup {{isAttributePopup ? 'zan-popup--show' : ''}}">
+        <!-- 遮罩层 -->
+        <view class="zan-popup__mask" bindtap="closeAttributePopup"></view>
+        <!-- 弹出层内容 -->
+        <view class="zan-popup__container">
+
+            <view class="popup-wrapper">
+                <view class="popup-title">
+                    <text>产品属性</text>
+                </view>
+
+                <view class="attributes">
+                    <block wx:if="{{visibleAttributeCount > 0}}">
+                        <block wx:for="{{product.attributes}}" wx:for-item="attribute" wx:key="">
+                            <view wx:if="{{attribute.visible == true}}" class="attribute-row">
+                                <view class="attribute-name">
+                                    <text>{{attribute.name}}</text>
+                                </view>
+                                <view class="attribute-value">
+                                    <block wx:for="{{attribute.options}}" wx:for-item="option" wx:key="">
+                                        <text class="attribute-value-item">{{option.name}}</text>
+                                    </block>
+                                </view>
+                            </view>
+                        </block>
+                    </block>
+                    <block wx:else>
+                        <view class="empty-attribute">
+                            <text>无产品属性</text>
+                        </view>
+                    </block>
+                </view>
+            </view>
+
+            <button class="confirm btn btn-primary" bindtap="closeAttributePopup">确定</button>
+
+        </view>
+    </view>
+    <!-- 产品属性结束 -->
+
+    <!-- 产品分享开始 -->
+    <view class="zan-popup zan-popup--bottom share-popup {{isSharePopup ? 'zan-popup--show' : ''}}">
+        <!-- 遮罩层 -->
+        <view class="zan-popup__mask" bindtap="closeSharePopup"></view>
+        <!-- 弹出层内容 -->
+        <view class="zan-popup__container">
+            <view class="shareBtn">
+                <button open-type="share">
+                    <image src="/images/share-friend.svg"></image>
+                    <text>分享给好友</text>
+                </button>
+            </view>
+            <view class="shareBtn" bindtap="sharePoster">
+                <image src="/images/share-timeline.svg"></image>
+                <text>分享海报</text>
+            </view>
+        </view>
+    </view>
+    <!-- 产品分享结束 -->
+
+    <!-- 分享海报开始 -->
+    <view class="zan-popup zan-popup--center poster-popup {{isPosterPopup ? 'zan-popup--show' : ''}}">
+        <!-- 遮罩层 -->
+        <view class="zan-popup__mask" bindtap="closePosterPopup"></view>
+        <!-- 弹出层内容 -->
+        <view class="zan-popup__container">
+            <view class="poster-wrapper">
+                <canvas style="width:600px;height:970px;" canvas-id="poster_canvas" />
+                <view class="poster">
+                    <image src="{{posterImage}}" mode="widthFix"></image>
+                </view>
+                <view class="actions">
+                    <view class="cancel" bindtap="closePosterPopup">取消</view>
+                    <view class="confirm" bindtap="savePoster">保存到相册</view>
+                </view>
+                <!--<view class="close" bindtap="closePosterPopup">
+                    <image src="/images/close.svg"></image>
+                </view>-->
+            </view>
+        </view>
+    </view>
+    <!-- 分享海报结束 -->
+
+    <block wx:if="{{favor}}">
+        <button class="btn side-btn cart-btn" bindtap="goCart">
+            <image src="/images/cart_light.svg"></image>
+            <text class="cart-quantity">{{cart_quantity}}</text>
+        </button>
+    </block>
+
+    <template is="login-popup" data="{{show: isLoginPopup, userInfo: userInfo}}"></template>
+    <template is="zan-toptips" data="{{ zanTopTips, top: NAV_HEIGHT }}"></template>
+</view>

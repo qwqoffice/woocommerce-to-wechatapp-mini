@@ -1,0 +1,20 @@
+<view class="ui-slider" style="position: relative;{{sliderStyle}}">
+    <!-- slider的外部 -->
+
+    <view class="slider-line-touch" bindtap="touchStartLineHandler" style="{{sliderLineTouchStyle}}">
+        <view class="slider-line-background" style="{{sliderLineBackgroundStyle}}"></view>
+        <view class="slider-line" style="{{sliderLineStyle}};{{sliderLineDynamicStyle}};{{sliderBarAnimateStyle}}"></view>
+    </view>
+
+    <view class="slider-bar-wrap1" id="wrap1" catchtouchmove="touchMoveHandler" catchtouchstart="touchStartHandler" catchtouchend="touchEndHandler" style="{{sliderBarWrapStyle}};{{sliderBarWrapDynamicStyle}};{{sliderBarAnimateStyle}}">
+        <view class="tooltip">{{unlimited ? value[0] > max - step ? '不限' : value[0] : value[0]}}</view>
+        <view class="slider" style="{{sliderBarStyle}};{{sliderBarAnimateStyle}};{{thumbDownCustomStyle}}"></view>
+    </view>
+
+
+    <view class="slider-bar-wrap2" id="wrap2" catchtouchmove="touchMove2Handler" catchtouchstart="touchStart2Handler" catchtouchend="touchEnd2Handler" style="{{sliderBarWrapStyle}};{{sliderBarWrap2DynamicStyle}};{{sliderBarAnimateStyle}}">
+        <view class="tooltip">{{unlimited ? value[1] > max - step ? '不限' : value[1] : value[1]}}</view>
+        <view class="slider" style="{{sliderBarStyle}};{{sliderBarAnimateStyle}};{{thumbDown2CustomStyle}}">
+        </view>
+    </view>
+</view>

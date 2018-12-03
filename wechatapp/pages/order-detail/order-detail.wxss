@@ -1,0 +1,498 @@
+/* pages/order-detail/order-detail.wxss */
+
+/**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */
+
+page {
+    background-color: #f5f5f5;
+}
+
+.container {
+    margin-bottom: 50px;
+}
+
+/* 订单状态 */
+
+.order-status {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#96588a), to(#bc7eaf));
+}
+
+/* 银行账户详情 */
+
+.account-details {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.account-details .detail-title {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.account-details .detail-description {
+    color: #666;
+}
+
+.account-details .account {
+    position: relative;
+    margin: 20px 0;
+    background-color: #f5f5f5;
+}
+
+.account-details .account:not(:first-child) {
+    margin-top: 35px;
+}
+
+.account-details .account::before, .account-details .account::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -16px;
+    left: 0;
+    width: 100%;
+    height: 16px;
+    background: -webkit-linear-gradient(transparent 0, transparent 0),
+                -webkit-linear-gradient(135deg, #f5f5f5 33.33%, transparent 33.33%),
+                -webkit-linear-gradient(45deg, #f5f5f5 33.33%, transparent 33.33%);
+    background-size: 0 100%, 16px 16px, 16px 16px;
+}
+
+.account-details .account::after {
+    top: auto;
+    bottom: -16px;
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.account-details .account .row {
+    padding: 10px;
+}
+
+.account-details .account .row .column-name {
+    color: #666;
+}
+
+.account-details .account .row .column-value {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 2;
+}
+
+/* 物流信息 */
+
+.order-shipping {
+    position: relative;
+}
+
+.order-shipping::before {
+    content: "";
+    position: absolute;
+    top: -0.5px;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border-bottom: 1px solid #eaeaea;
+    transform-origin: 0 0;
+    transform: scale(0.5, 0.5);
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.order-shipping .button-main {
+    display: block;
+}
+
+.order-shipping .button-main view {
+    line-height: 1;
+}
+
+.order-shipping .go-shipping-detail image {
+    width: 20px;
+    height: 20px;
+}
+
+.order-shipping .shipping-detail {
+    color: #96588a;
+}
+
+.order-shipping .time {
+    color: #999;
+    font-size: 12px;
+}
+
+.shipper {
+    padding: 10px;
+    padding-left: 0;
+    display: flex;
+}
+
+.shipper .shipper-icon image {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+}
+
+.shipper .shipper-detail {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.shipper .code {
+    font-size: 12px;
+    color: #888;
+}
+
+/* 收货地址 */
+
+.order-shipping, .select-address {
+    height: auto;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.select-address .button-main {
+    display: block;
+}
+
+.go-shipping-detail {
+    flex-shrink: 0;
+}
+
+.order-shipping .icon, .select-address .icon, .order-comment .icon,
+.manager-comment .icon {
+    flex-shrink: 0;
+}
+
+.order-shipping .icon image, .select-address .icon image,
+.order-comment .icon image, .manager-comment .icon image {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+/* 买家留言 */
+
+.order-comment, .manager-comment {
+    padding: 10px 14px;
+    align-items: center;
+    display: flex;
+    background-color: #fff;
+    margin-top: 0;
+    position: relative;
+}
+
+.order-comment::before, .manager-comment::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border-top: 1px solid #eaeaea;
+    transform-origin: 0 0;
+    transform: scale(0.5, 0.5);
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+/* 商家留言 */
+
+.manager-comment .comment {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.manager-comment .comment .comment-date {
+    font-size: 12px;
+    color: #999;
+}
+
+/* 购物车列表 */
+
+.cart-list {
+    background-color: #fff;
+    padding: 0 10px;
+}
+
+.cart-item {
+    display: flex;
+    position: relative;
+    padding: 5px;
+}
+
+.cart-item::before {
+    content: "";
+    position: absolute;
+    top: -0.5px;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border-bottom: 1px solid #ddd;
+    transform-origin: 0 0;
+    transform: scale(0.5, 0.5);
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.cart-item:last-child::before {
+    display: none;
+}
+
+.cart-item .product-image image {
+    width: 100rpx;
+    height: 100rpx;
+    flex-basis: 100rpx;
+}
+
+.cart-item .cart-detail-wrapper {
+    display: flex;
+    flex-grow: 1;
+    padding: 0 20rpx;
+}
+
+.cart-item .cart-detail, .cart-item .cart-quantity {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cart-item .cart-detail {
+    width: 350rpx;
+}
+
+.cart-item .cart-detail .product-title, .cart-item .cart-detail .choose-wrapper {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cart-item .cart-detail .product-title {
+    color: #96588a;
+    word-break: break-all;
+    font-size: 12px;
+}
+
+.cart-item .cart-detail .choose-wrapper {
+    font-size: 12px;
+}
+
+.cart-item .cart-detail .choose-wrapper .choose-tip {
+    display: none;
+}
+
+.cart-item .cart-item-price {
+    display: flex;
+    align-items: center;
+}
+
+/* 价格详情 */
+
+.price-detail, .date-detail {
+    background-color: #fff;
+    padding: 10px 14px;
+    margin-bottom: 0;
+}
+
+.price-detail .detail-row {
+    display: flex;
+    font-size: 12px;
+    justify-content: space-between;
+}
+
+.price-detail .detail-row .detail-name {
+    width: 50px;
+}
+
+.price-detail .detail-row .detail-value, .date-detail .detail-row .detail-value,
+.order-refunds .detail-row .detail-value {
+    display: flex;
+    justify-content: space-between;
+    color: #96588a;
+    font-size: 12px;
+}
+
+.price-detail .detail-row.subtotal .detail-value .currency,
+.price-detail .detail-row.shipping .detail-value .currency,
+.price-detail .detail-row.fee .detail-value .currency {
+    margin-left: 5px;
+}
+
+/* 实付金额 */
+
+.order-total {
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    margin-top: 0;
+    position: relative;
+}
+
+.order-total::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border-top: 1px solid #eaeaea;
+    transform-origin: 0 0;
+    transform: scale(0.5, 0.5);
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.order-total .order-total-text {
+    display: flex;
+    align-items: center;
+}
+
+.order-total .price {
+    display: flex;
+    color: #96588a;
+    font-size: 16px;
+}
+
+.order-total .price .currency {
+    font-size: 10px;
+}
+
+/* 退款 */
+
+.order-refunds {
+    background-color: #fff;
+    margin: 10px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.refund-label {
+    padding: 10px 14px;
+    position: relative;
+}
+
+.refund-label::before {
+    content: "";
+    position: absolute;
+    top: -0.5px;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border-bottom: 1px solid #ddd;
+    transform-origin: 0 0;
+    transform: scale(0.5, 0.5);
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.order-refunds .refund {
+    padding: 0 14px;
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-refunds .refund .detail-name {
+    display: flex;
+    flex-direction: column;
+}
+.order-refunds .refund .date {
+	color: #999;
+}
+
+/* 订单时间 */
+
+.date-detail {
+    margin-bottom: 0;
+}
+
+.date-detail .detail-row {
+    display: flex;
+    font-size: 12px;
+}
+
+.date-detail .detail-row .detail-name {
+    width: 70px;
+}
+
+/* 操作按钮 */
+
+.actions-button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: #fff;
+}
+
+.actions-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border-top: 1px solid #ddd;
+    transform-origin: 0 0;
+    transform: scale(0.5, 0.5);
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.actions-button button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 7px 0;
+    border-radius: 2px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    line-height: 34px;
+    position: relative;
+    z-index: 2;
+}
+
+.actions-button-left button {
+    border: 0;
+    padding: 5px;
+    margin-left: 10px;
+    margin-right: 0;
+    background-color: transparent;
+    position: relative;
+    z-index: 2;
+}
+
+.actions-button-left button image {
+    width: 25px;
+    height: 25px;
+}
+
+.actions-button-right {
+    display: flex;
+}
+
+.actions-button button.btn-primary {
+    border-radius: 2px;
+    margin-right: 10px;
+    border-color: transparent;
+}

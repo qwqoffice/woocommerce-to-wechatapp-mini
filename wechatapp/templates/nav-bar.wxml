@@ -1,0 +1,22 @@
+<!--templates/nav-bar.wxml-->
+
+<!--**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */-->
+
+<template name="nav-bar">
+    <view class="nav-bar-wrapper" style="height:{{navBarHeight}}">
+        <block wx:if="{{backBtn}}">
+            <view class="nav-bar-item back" bindtap="backBtnTap">
+                <image src="/images/back_white_light.svg"></image>
+            </view>
+        </block>
+        <view class="nav-bar-item title">
+            <text>{{pageTitle}}</text>
+        </view>
+        <view class="nav-bar-item btns-placeholder"></view>
+    </view>
+</template>

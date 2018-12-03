@@ -1,0 +1,4 @@
+<view class="ui-nav-bar" style="{{ selfCustomStyle }}">
+    <slot name="content"></slot>
+</view>
+<slot name="placeholder"></slot>

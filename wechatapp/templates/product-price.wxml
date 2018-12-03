@@ -1,0 +1,74 @@
+<!--templates/product-price.wxml-->
+
+<!--**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */-->
+
+<template name="product-price">
+    <view wx:if="{{product != null}}" class="product-price-wrapper">
+
+        <!-- 促销（当前）价格开始 -->
+        <block wx:if="{{selectedVariation != null}}">
+            <view class="product-price">
+                <text class="currency">{{currency}}</text>
+                <text class="price">{{selectedVariation.price}}</text>
+            </view>
+        </block>
+        <block wx:else>
+            <view class="product-price">
+                <block wx:if="{{product.type == 'variable' && product.min_price != product.max_price}}">
+                    <text class="currency">{{currency}}</text>
+                    <text class="min-price">{{product.min_price}}</text>
+                    <text class="hyphen">-</text>
+                    <text class="currency">{{currency}}</text>
+                    <text class="max-price">{{product.max_price}}</text>
+                </block>
+                <block wx:else>
+                    <block wx:if="{{product.price != ''}}">
+                        <text class="currency">{{currency}}</text>
+                        <text class="price">{{product.price}}</text>
+                    </block>
+                </block>
+            </view>
+        </block>
+        <!-- 促销（当前）价格结束 -->
+
+        <!-- 常规价格开始 -->
+        <block wx:if="{{selectedVariation != null}}">
+            <block wx:if="{{selectedVariation.on_sale}}">
+                <view class="product-regular_price">
+                    <text class="currency">{{currency}}</text>
+                    <text class="regular-price">{{selectedVariation.regular_price}}</text>
+                </view>
+            </block>
+        </block>
+        <block wx:else>
+            <block wx:if="{{product.on_sale}}">
+                <view class="product-regular_price">
+                    <block wx:if="{{product.type == 'variable' }}">
+                        <block wx:if="{{product.min_regular_price != product.max_regular_price}}">
+                            <text class="currency">{{currency}}</text>
+                            <text class="min-regular-price">{{product.min_regular_price}}</text>
+                            <text class="hyphen">-</text>
+                            <text class="currency">{{currency}}</text>
+                            <text class="max-regular-price">{{product.max_regular_price}}</text>
+                        </block>
+                        <block wx:else>
+                            <text class="currency">{{currency}}</text>
+                            <text class="regular-price">{{product.min_regular_price}}</text>
+                        </block>
+                    </block>
+                    <block wx:else>
+                        <text class="currency">{{currency}}</text>
+                        <text class="regular-price">{{product.regular_price}}</text>
+                    </block>
+                </view>
+            </block>
+        </block>
+        <!-- 常规价格结束 -->
+
+    </view>
+</template>

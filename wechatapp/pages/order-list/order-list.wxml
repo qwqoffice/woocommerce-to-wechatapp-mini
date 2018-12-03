@@ -1,0 +1,80 @@
+<!--pages/order-list/order-list.wxml-->
+
+<!--**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */-->
+
+<import src="/vendor/ZanUI/tab/index.wxml" />
+<import src="/vendor/ZanUI/loadmore/index.wxml" />
+<import src="/templates/order-cart-list.wxml" />
+<import src="/templates/nav-bar.wxml" />
+
+<nav-bar custom-style="{{ {backgroundColor:'#96588a'} }}">
+    <view slot="content" class="nav-bar-wrapper-wrap">
+        <template is="nav-bar" data="{{pageTitle, navNarHeight: NAV_BAR_HEIGHT, backBtn: true}}"></template>
+    </view>
+    <view slot="placeholder" style="height:{{NAV_HEIGHT}}"></view>
+</nav-bar>
+
+<view class="container order-list">
+
+    <view class="order-status-bar" style="padding-top:{{NAV_HEIGHT}}">
+        <template is="zan-tab" data="{{ tab: { list: tabList, selectedId: tabSelected, scroll: true, height: 0 }, componentId: 'order-tab' }}"></template>
+    </view>
+
+    <view class="tab-content-wrapper">
+
+        <view wx:if="{{bottomStyle == 'empty'}}" class="empty-order center">
+            <text>还没有相关订单</text>
+        </view>
+        <block wx:for="{{orders}}" wx:key="">
+            <view class="order">
+
+                <view class="order-main" data-id="{{item.id}}" bindtap="goOrderDetail">
+
+                    <view class="order-header">
+                        <text class="order-number">{{item.date_created}}</text>
+                        <text class="order-status">{{item.order_status_desc}}</text>
+                    </view>
+
+                    <template is="order-cart-list" data="{{line_items: item.line_items, currency: currency}}"></template>
+
+                    <!-- 价格详情开始 -->
+                    <view class="order-price">
+                        <view>
+                            <text>{{item.line_items_count}}件商品</text>
+                        </view>
+                        <view>
+                            <text>合计</text>
+                            <text class="currency">{{currency}}</text>
+                            <text>{{item.total}}</text>
+                        </view>
+                        <view>
+                            <text>运费</text>
+                            <text class="currency">{{currency}}</text>
+                            <text>{{item.shipping_total}}</text>
+                        </view>
+                    </view>
+                    <!-- 价格详情结束 -->
+
+                </view>
+
+                <!-- 操作按钮开始 -->
+                <view class="actions-button">
+                    <button class="btn" open-type="contact" show-message-card="true" session-from="shop-order-list" send-message-title="商城订单 - {{item.id}}">联系客服</button>
+                    <block wx:if="{{item.status == 'pending'}}">
+                        <button class="btn btn-primary" data-index="{{index}}" data-id="{{item.id}}" bindtap="makePayment">立即付款</button>
+                    </block>
+                </view>
+                <!-- 操作按钮结束 -->
+
+            </view>
+        </block>
+
+        <template wx:if="{{bottomStyle == 'nomore'}}" is="zan-loadmore" data="{{nomore:true}}"></template>
+    </view>
+
+</view>

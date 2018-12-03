@@ -1,0 +1,149 @@
+/* pages/search/search.wxss */
+
+/**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */
+
+/* 搜索栏 */
+
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+}
+
+.search-input-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border-bottom: 1px solid #eee;
+    transform-origin: 0 0;
+    transform: scale(0.5, 0.5);
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.clear-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    width: 12px;
+    height: 12px;
+    padding: 2px;
+    background-color: #ccc;
+    border-radius: 50%;
+    transform: translateY(-50%);
+}
+
+.search-input {
+    display: block;
+    font-size: 14px;
+    height: 45px;
+    color: #444;
+    padding: 10px 10px;
+    padding-right: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+}
+
+.submit-btn {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    box-sizing: content-box;
+    width: 10%;
+    font-size: 32rpx;
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0 10px;
+    line-height: 1;
+    position: relative;
+    z-index: 2;
+}
+
+/* 搜索历史 */
+
+.history-label {
+    color: #555;
+    font-size: 28rpx;
+    padding: 10px 12px;
+    padding-top: 25px;
+    position: relative;
+}
+
+.history {
+    height: 48px;
+    padding: 0 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.history:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.search-keyword {
+    font-size: 32rpx;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.history .actions {
+    flex-shrink: 0;
+}
+
+.history .actions image {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.delete-all {
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.delete-all image {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
+.delete-all text {
+    line-height: 1;
+}
+
+.history::before, .history-label::before, .delete-all::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border-bottom: 1px solid #ddd;
+    transform-origin: 0 0;
+    transform: scale(0.5, 0.5);
+    box-sizing: border-box;
+    z-index: 1;
+}

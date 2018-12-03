@@ -1,0 +1,172 @@
+/* pages/category.wxss */
+
+/**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */
+
+/* 默认样式 */
+
+.default .special-categories {
+    display: flex;
+    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 3px;
+}
+
+.default .special-categories .featured, .default .special-categories .onsale {
+    width: 50%;
+    height: 100px;
+    margin: 0 5px;
+    border-radius: 2px;
+    background-color: #f3f3f3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.default .special-categories .category-image {
+    margin-right: 10px;
+}
+
+.default .special-categories .category-image,
+.default .special-categories .category-image image {
+    width: 25px;
+    height: 25px;
+}
+
+.default .default .special-categories text {
+    color: #555;
+    font-size: 20px;
+}
+
+.default .category {
+    display: flex;
+    padding: 5px 10px;
+    margin: 7px 0;
+    background-color: #fafafa;
+}
+
+.default .category .category-image, .default .category .category-image image {
+    width: 80px;
+    height: 80px;
+}
+
+.default .category .category-image {
+    flex-shrink: 0;
+}
+
+.default .category .category-detail {
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.default .category-detail .category-description {
+    color: #888;
+}
+
+.default .category-detail .category-description text {
+    line-height: 1.2;
+}
+
+.default .category .go {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    flex-shrink: 0;
+}
+
+.default .category .go image {
+    width: 20px;
+    height: 20px;
+}
+
+/* 小米样式 */
+
+.mi .tab, .tab scroll-view {
+    height: 100%;
+}
+
+.mi .tab {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.mi .tab scroll-view {
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #f1f1f1;
+}
+
+.mi .tab .tab-item {
+    padding: 10px 0;
+}
+
+.mi .tab .tab-item .tab-title {
+    padding: 5px 0;
+    border-left: 3px solid transparent;
+    text-align: center;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mi .tab .tab-item .tab-title image {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    margin-left: -20px;
+}
+
+.mi .tab .tab-item .tab-title.selected {
+    color: #96588a;
+    border-left: 3px solid #96588a;
+}
+
+.mi .categories {
+    margin-left: 81px;
+    padding: 0 5px;
+}
+
+.mi .categories .category-wrapper {
+    display: none;
+}
+
+.mi .categories .category-wrapper.show {
+    display: block;
+}
+
+.mi .categories .category-wrapper.show .category-inner {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mi .categories .category-wrapper .view-more {
+    text-align: center;
+    padding: 10px;
+    margin: 0 10px;
+    margin-top: 10px;
+    background-color: #f7f7f7;
+}
+
+.mi .categories .category {
+    width: 33.3333333333333%;
+    padding: 0 10px;
+    margin: 10px 0;
+}
+
+.category .title {
+    color: #777;
+    display: flex;
+    justify-content: center;
+    font-size: 26rpx;
+}

@@ -1,0 +1,250 @@
+<!--pages/checkout/checkout.wxml-->
+
+<!--**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */-->
+
+<import src="/vendor/ZanUI/toptips/index.wxml" />
+<import src="/templates/product-selected-attributes.wxml" />
+<import src="/templates/nav-bar.wxml" />
+
+<nav-bar custom-style="{{ {backgroundColor:'#96588a'} }}">
+    <view slot="content" class="nav-bar-wrapper-wrap">
+        <template is="nav-bar" data="{{pageTitle, navNarHeight: NAV_BAR_HEIGHT, backBtn: true}}"></template>
+    </view>
+    <view slot="placeholder" style="height:{{NAV_HEIGHT}}"></view>
+</nav-bar>
+
+<view class="container checkout">
+    <form report-submit="{{true}}" bindsubmit="goSubmitOrder">
+
+        <!-- 收货地址开始 -->
+        <block wx:if="{{addressType == 'wx'}}">
+            <button class="select-address popup-btn {{address != '' ? 'selected' : ''}}" bindtap="{{addressAuth ? 'selectAddressSuccess' : ''}}" open-type="{{! addressAuth ? 'openSetting' : ''}}" bindopensetting="{{! addressAuth ? 'openSetting' : ''}}">
+                <view class="button-main">
+                    <block wx:if="{{address == '' || address.userName == undefined}}">
+                        <text>{{addressAuth ? '选择收货地址' : '打开通讯地址授权'}}</text>
+                    </block>
+                    <block wx:else>
+                        <view class="customer-info">
+                            <text>{{address.userName}}</text>
+                            <text>{{address.telNumber}}</text>
+                        </view>
+                        <view class="address">
+                            <text>{{address.provinceName}}</text>
+                            <text>{{address.cityName}}</text>
+                            <text>{{address.countyName}}</text>
+                            <text>{{address.detailInfo}}</text>
+                        </view>
+                    </block>
+                </view>
+                <view class="go-popup">
+                    <image src="/images/go_light.svg"></image>
+                </view>
+            </button>
+        </block>
+        <block wx:else>
+            <button class="select-address popup-btn {{address != '' ? 'selected' : ''}}" bindtap="goAddressList">
+                <view class="button-main">
+                    <block wx:if="{{address == '' || address.billing_first_name == undefined}}">
+                        <text>选择收货地址</text>
+                    </block>
+                    <block wx:else>
+                        <view class="customer-info">
+                            <text>{{address.billing_first_name}}</text>
+                            <text>{{address.billing_phone}}</text>
+                        </view>
+                        <view class="address">
+                            <text>{{address.billing_country.label}}</text>
+                            <text>{{address.billing_state.label || address.billing_state}}</text>
+                            <text>{{address.billing_city}}</text>
+                            <text>{{address.billing_address_1}}</text>
+                        </view>
+                    </block>
+                </view>
+                <view class="go-popup">
+                    <image src="/images/go_light.svg"></image>
+                </view>
+            </button>
+        </block>
+        <!-- 收货地址结束 -->
+
+        <!-- 购物车列表开始 -->
+        <view wx:if="{{cart.cart_contents_count != 0}}" class="cart-list">
+            <block wx:for="{{cart.cart}}" wx:key="">
+                <view class="cart-item">
+                    <view class="product-image">
+                        <image src="{{item.product.images[0].shop_single}}" mode="aspectFit"></image>
+                    </view>
+                    <view class="cart-detail-wrapper">
+                        <view class="cart-detail">
+                            <text class="product-title">{{item.product.name}}</text>
+                            <template wx:if="{{item.product.type == 'variation'}}" is="product-selected-attributes" data="{{selectedAttributes: item.variation, allAttributes: item.parent_attributes, selectedAllVariation: true}}" />
+                        </view>
+                        <view class="cart-quantity">
+                            <text>× {{item.quantity}}</text>
+                        </view>
+                    </view>
+                    <view class="cart-item-price">
+                        <view class="line-total">
+                            <text class="currency">{{currency}}</text>
+                            <text class="price">{{item.line_subtotal}}</text>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+        <!-- 购物车列表结束 -->
+
+        <view class="shipping-and-coupon">
+
+            <!-- 配送方式按钮开始 -->
+            <button wx:if="{{address != '' || shipping.chosen_method === ''}}" class="select-shipping popup-btn {{shipping == null || shipping.chosen_method === '' ? 'disabled' : ''}}" bindtap="openShippingPopup">
+                <view class="button-main">
+                    <text>配送方式</text>
+
+                    <block wx:if="{{cart.needs_shipping && shipping.methods.length == 0}}">
+                        <text wx:if="{{shipping != null}}" class="no-method">暂无可用配送方式</text>
+                    </block>
+                    <block wx:elif="{{! cart.needs_shipping}}">
+                        <text>无需物流</text>
+                    </block>
+                    <block wx:else>
+                        <block wx:for="{{shipping.methods}}" wx:key="">
+                            <block wx:if="{{shipping.chosen_method == item.id}}">
+                                <view class="shipping-method">
+                                    <view class="shipping-method-title">
+                                        <text>{{item.label}}</text>
+                                    </view>
+                                    <view class="shipping-method-cost">
+                                        <text>{{currency}}</text>
+                                        <text>{{item.cost}}</text>
+                                    </view>
+                                </view>
+                            </block>
+                        </block>
+                    </block>
+
+                </view>
+                <view class="go-popup">
+                    <image src="/images/go_light.svg"></image>
+                </view>
+            </button>
+            <!-- 配送方式按钮结束 -->
+
+        </view>
+
+        <!-- 付款方式开始 -->
+        <view class="payment-methods">
+            <block wx:for="{{payment.methods}}" wx:key="">
+                <view class="payment" data-id="{{item.id}}" bindtap="paymentChange">
+                    <view class="payment-main">
+                        <image class="icon" src="/images/payment-{{item.id}}.svg"></image>
+                        <text>{{item.title}}</text>
+                    </view>
+                    <view class="checkbox">
+                        <block wx:if="{{payment.chosen_method == item.id}}">
+                            <icon type="success" size="20" color="#96588a" />
+                        </block>
+                        <block wx:else>
+                            <view class="not-selected"></view>
+                        </block>
+                    </view>
+                </view>
+            </block>
+        </view>
+        <!-- 付款方式结束 -->
+
+        <!-- 买家留言开始 -->
+        <view class="order-comment popup-btn">
+            <view class="button-main">
+                <text class="button-main-text">留言</text>
+                <input name="comment"></input>
+            </view>
+        </view>
+        <!-- 买家留言结束 -->
+
+        <!-- 价格详情开始 -->
+        <view class="price-detail">
+            <view class="detail-row subtotal">
+                <text class="detail-name">小计</text>
+                <text class="detail-value"><text class="minus">-</text>
+                <text class="currency">{{currency}}</text>
+                <text>{{cart.cart_subtotal}}</text></text>
+            </view>
+            <view wx:if="{{address != ''}}" class="detail-row shipping">
+                <text class="detail-name">运费</text>
+                <text class="detail-value"><text class="minus">-</text>
+                <text class="currency">{{currency}}</text>
+                <text>{{cart.shipping_total}}</text></text>
+            </view>
+        </view>
+        <!-- 价格详情结束 -->
+
+        <!-- 底栏开始 -->
+        <view class="submit-order">
+            <view class="total">
+                <view class="cart-total">
+                    <text>合计：</text>
+                    <view class="price product-price">
+                        <text class="currency">{{currency}}</text>
+                        <text>{{address != '' ? cart.cart_total : cart.cart_contents_total }}</text>
+                    </view>
+                </view>
+                <view wx:if="{{cart.discount_cart > 0}}" class="discount-total">
+                    <text>优惠</text>
+                    <view class="price">
+                        <text class="currency">{{currency}}</text>
+                        <text>{{cart.discount_cart}}</text>
+                    </view>
+                </view>
+            </view>
+            <button class="zan-btn zan-btn--large btn btn-primary submit-order-btn {{(addressType == 'wx' && (address == '' || address.userName == undefined)) || (addressType != 'wx' && (address == '' || address.billing_first_name == undefined)) || shipping == null || shipping.chosen_method === false || payment.chosen_method === false ? 'disabled' : ''}}"
+                form-type="submit">
+                <text>提交订单</text>
+            </button>
+        </view>
+        <!-- 底栏结束 -->
+
+        <!-- 配送方式弹窗开始 -->
+        <view class="zan-popup zan-popup--bottom shipping-popup {{isShippingPopup ? 'zan-popup--show' : ''}}">
+            <!-- 遮罩层 -->
+            <view class="zan-popup__mask" bindtap="closeShippingPopup"></view>
+            <!-- 弹出层内容 -->
+            <view class="zan-popup__container">
+
+                <view class="popup-wrapper">
+                    <view class="popup-title">
+                        <text>配送方式</text>
+                    </view>
+
+                    <block wx:for="{{shipping.methods}}" wx:key="">
+                        <button data-id="{{item.id}}" class="shipping-method-btn {{shipping.chosen_method == item.id ? 'selected' : ''}}" bindtap="shippingChange">
+                            <view class="shipping-method">
+                                <view class="shipping-method-title">
+                                    <text>{{item.label}}</text>
+                                </view>
+                                <view class="shipping-method-cost">
+                                    <text>{{currency}}</text>
+                                    <text>{{item.cost}}</text>
+                                </view>
+                            </view>
+
+                            <view class="selected-image">
+                                <image src="/images/check.svg"></image>
+                            </view>
+                        </button>
+                    </block>
+                </view>
+
+            </view>
+        </view>
+        <!-- 配送方式弹窗结束 -->
+
+    </form>
+
+    <template is="zan-toptips" data="{{ zanTopTips, top: NAV_HEIGHT }}"></template>
+</view>

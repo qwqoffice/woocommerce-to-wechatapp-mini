@@ -1,0 +1,6 @@
+{
+	"navigationBarTitleText": "购物车",
+	"usingComponents": {
+		"nav-bar": "/components/nav-bar/dist/index"
+	}
+}

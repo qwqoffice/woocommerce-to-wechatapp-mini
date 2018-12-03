@@ -1,0 +1,107 @@
+<!--pages/category/category.wxml-->
+
+<!--**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */-->
+
+<import src="/templates/nav-bar.wxml" />
+
+<nav-bar custom-style="{{ {backgroundColor:'#96588a'} }}">
+    <view slot="content" class="nav-bar-wrapper-wrap">
+        <template is="nav-bar" data="{{pageTitle, navNarHeight: NAV_BAR_HEIGHT, backBtn: false}}"></template>
+    </view>
+    <view slot="placeholder" style="height:{{NAV_HEIGHT}}"></view>
+</nav-bar>
+
+<view wx:if="{{categories != null}}" class="container {{style}}">
+
+    <!-- 默认样式布局开始 -->
+    <block wx:if="{{style == 'default'}}">
+        <view class="special-categories">
+            <view class="featured" bindtap="goFeatureProducts">
+                <view class="category-image">
+                    <image src="/images/favor_fill.svg"></image>
+                </view>
+                <view>
+                    <text>特色</text>
+                </view>
+            </view>
+            <view class="onsale" bindtap="goOnSaleProducts">
+                <view class="category-image">
+                    <image src="/images/sale_fill.svg"></image>
+                </view>
+                <view>
+                    <text>促销</text>
+                </view>
+            </view>
+        </view>
+
+        <view class="categories">
+            <block wx:for="{{categories}}" wx:key="">
+                <view class="category" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="goCategoryProducts">
+                    <view class="category-image">
+                        <image src="{{item.image != '' ? item.image : '/images/placeholder.png'}}" mode="widthFix"></image>
+                    </view>
+                    <view class="category-detail">
+                        <view class="category-name">
+                            <text>{{item.name}}</text>
+                        </view>
+                        <view class="category-description">
+                            <text>{{item.description}}</text>
+                        </view>
+                    </view>
+                    <view class="go">
+                        <image src="/images/go_light.svg"></image>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </block>
+    <!-- 默认样式布局结束 -->
+
+    <!-- 小米样式布局开始 -->
+    <block wx:elif="{{style == 'mi'}}">
+        <view class="tab" style="padding-top:{{NAV_HEIGHT}}">
+            <scroll-view scroll-y="{{true}}">
+                <view class="tab-item" bindtap="goFeatureProducts">
+                    <view class="tab-title">
+                        <image src="/images/favor_fill.svg"></image>
+                        <text>特色</text>
+                    </view>
+                </view>
+                <view class="tab-item" bindtap="goOnSaleProducts">
+                    <view class="tab-title">
+                        <image src="/images/sale_fill.svg"></image>
+                        <text>促销</text>
+                    </view>
+                </view>
+                <block wx:for="{{categories}}" wx:key="">
+                    <view wx:if="{{item.parent == 0}}" class="tab-item" data-id="{{item.id}}" bindtap="tabChange">
+                        <view class="tab-title {{tabSelected == item.id ? 'selected' : ''}}">{{item.name}}</view>
+                    </view>
+                </block>
+            </scroll-view>
+        </view>
+        <view class="categories">
+            <block wx:for="{{categories}}" wx:for-item="top" wx:key="">
+                <view wx:if="{{top.parent == 0}}" class="category-wrapper category-{{top.id}} {{top.id == tabSelected ? 'show' : ''}}">
+                    <view class="category-inner">
+                        <block wx:for="{{categories}}" wx:key="">
+                            <view wx:if="{{item.parent == top.id}}" class="category" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="goCategoryProducts">
+                                <image src="{{item.image != '' ? item.image : '/images/placeholder.png'}}" mode="widthFix"></image>
+                                <view class="title">
+                                    <text>{{item.name}}</text>
+                                </view>
+                            </view>
+                        </block>
+                    </view>
+                    <view class="view-more" data-id="{{top.id}}" data-name="{{top.name}}" bindtap="goCategoryProducts">查看全部</view>
+                </view>
+            </block>
+        </view>
+    </block>
+    <!-- 小米样式布局结束 -->
+</view>

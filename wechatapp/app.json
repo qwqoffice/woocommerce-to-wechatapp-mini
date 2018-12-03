@@ -1,0 +1,58 @@
+{
+	"pages": [
+		"pages/index/index",
+		"pages/category/category",
+		"pages/cart/cart",
+		"pages/my/my",
+		"pages/product-detail/product-detail",
+		"pages/checkout/checkout",
+		"pages/order-detail/order-detail",
+		"pages/order-list/order-list",
+		"pages/about/about",
+		"pages/product-list/product-list",
+		"pages/web-view/web-view",
+		"pages/search/search"
+	],
+	"window": {
+		"backgroundTextStyle": "light",
+		"backgroundColor": "#96588a",
+		"navigationBarBackgroundColor": "#96588a",
+		"navigationBarTitleText": "WooCommerce微信小程序",
+		"navigationBarTextStyle": "white",
+		"navigationStyle": "custom",
+		"enablePullDownRefresh": true,
+		"onReachBottomDistance": 40
+	},
+	"tabBar": {
+		"color": "#707070",
+		"selectedColor": "#96588a",
+		"borderStyle": "#707070",
+		"list": [
+			{
+				"selectedIconPath": "images/home_fill_light.png",
+				"iconPath": "images/home_light.png",
+				"pagePath": "pages/index/index",
+				"text": "首页"
+			},
+			{
+				"selectedIconPath": "images/category_fill.png",
+				"iconPath": "images/category.png",
+				"pagePath": "pages/category/category",
+				"text": "分类"
+			},
+			{
+				"selectedIconPath": "images/cart_fill_light.png",
+				"iconPath": "images/cart_light.png",
+				"pagePath": "pages/cart/cart",
+				"text": "购物车"
+			},
+			{
+				"selectedIconPath": "images/my_fill_light.png",
+				"iconPath": "images/my_light.png",
+				"pagePath": "pages/my/my",
+				"text": "我的"
+			}
+		]
+	},
+	"debug": false
+}

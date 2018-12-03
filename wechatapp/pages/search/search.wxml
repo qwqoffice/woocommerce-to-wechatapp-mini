@@ -1,0 +1,54 @@
+<!--pages/search/search.wxml-->
+
+<!--**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */-->
+
+<import src="/templates/nav-bar.wxml" />
+
+<nav-bar custom-style="{{ {backgroundColor:'#96588a'} }}">
+    <view slot="content" class="nav-bar-wrapper-wrap">
+        <template is="nav-bar" data="{{pageTitle, navNarHeight: NAV_BAR_HEIGHT, backBtn: true}}"></template>
+    </view>
+    <view slot="placeholder" style="height:{{NAV_HEIGHT}}"></view>
+</nav-bar>
+
+<view class="container search">
+
+    <!-- 搜索栏开始 -->
+    <form bindsubmit="searchSubmit">
+        <view class="search-input-wrapper">
+            <input class="search-input" type="text" name="search" auto-focus="{{true}}" placeholder="输入产品标题..." confirm-type="search" placeholder-class="input-placeholder-gray" value="{{searchInputValue}}" bindconfirm="searchSubmit" bindinput="searchInput">
+            <image wx:if="{{clearSearchShow}}" class="clear-btn" bindtap="clearSearch" src="/images/close_white.svg"></image>
+            </input>
+            <block wx:if="{{clearSearchShow}}">
+                <button class="submit-btn" form-type="submit">搜索</button>
+            </block>
+            <block wx:else>
+                <button class="submit-btn" bindtap="backBtnTap">取消</button>
+            </block>
+        </view>
+    </form>
+    <!-- 搜索栏结束 -->
+
+    <!-- 搜索历史开始 -->
+    <view wx:if="{{history.length > 0}}" class="history-list">
+        <view class="history-label">搜索历史</view>
+        <block wx:for="{{history}}" wx:key="">
+            <view class="history">
+                <text class="search-keyword" data-keyword="{{item}}" bindtap="goSearch" bindlongpress="openActionPopup">{{item}}</text>
+                <view class="actions">
+                    <image src="/images/top_left_arrow.svg" data-keyword="{{item}}" bindtap="pushToIuput"></image>
+                </view>
+            </view>
+        </block>
+        <view class="delete-all" bindtap="clearHistory">
+            <image src="/images/delete_light.svg"></image>
+            <text>清空搜索历史</text>
+        </view>
+    </view>
+    <!-- 搜索历史结束 -->
+</view>

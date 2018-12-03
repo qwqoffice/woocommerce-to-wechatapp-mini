@@ -1,0 +1,50 @@
+<!--pages/about/about.wxml-->
+
+<!--**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */-->
+
+<import src="/templates/nav-bar.wxml" />
+
+<nav-bar custom-style="{{ {backgroundColor:'#96588a'} }}">
+    <view slot="content" class="nav-bar-wrapper-wrap">
+        <template is="nav-bar" data="{{pageTitle, navNarHeight: NAV_BAR_HEIGHT, backBtn: true}}"></template>
+    </view>
+    <view slot="placeholder" style="height:{{NAV_HEIGHT}}"></view>
+</nav-bar>
+
+<view wx:if="{{custom != undefined}}" class="container about">
+
+    <!-- WordPress页面开始 -->
+    <block wx:if="{{custom}}">
+        <view style="padding:0 {{padding}}px">
+            <htmltowxml json="{{content}}" showLoading="{{false}}" padding="{{padding}}" bindWxmlTagATap="tagATap"></htmltowxml>
+        </view>
+    </block>
+    <!-- WordPress页面结束 -->
+
+    <!-- 默认页面开始 -->
+    <block wx:else>
+        <view class="default-content">
+            <view class="logo">
+                <image src="/images/woo-logo.png"></image>
+                <view class="version">
+                    <text>WooCommerce+ {{version}}</text>
+                </view>
+            </view>
+            <view class="intro">
+                <text>WooCommerce+ 是一个使用开源程序 WordPress 和 WooCommerce 作为后台的商城小程序。</text>
+                <text>这意味着你能以一个非常低的成本建立属于你自己的商城网站，并与小程序连接起来。</text>
+            </view>
+            <view class="copyright">
+                <text>Copyright © 2016-2018 QwqOffice</text>
+                <text>All Rights Reserved.</text>
+            </view>
+        </view>
+    </block>
+    <!-- 默认页面结束 -->
+
+</view>

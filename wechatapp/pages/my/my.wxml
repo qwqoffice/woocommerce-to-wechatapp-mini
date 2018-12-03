@@ -1,0 +1,67 @@
+<!--pages/my.wxml-->
+
+<!--**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */-->
+
+<import src="/templates/login-popup.wxml" />
+<import src="/templates/login.wxml" />
+
+<view class="container my">
+    <view class="block user-info">
+        <view class="avatar-blur {{blurClass}}">
+            <image src="{{userInfo == null || userInfo == '' ? '/images/not-logged-background.png' : userInfo.avatarUrl}}" mode="widthFix" style="{{userInfo == null || userInfo == '' ? 'filter:blur(0);' : ''}}"></image>
+        </view>
+        <view class="avatar-blur-mask"></view>
+        <template is="login" data="{{userInfo: userInfo}}"></template>
+    </view>
+    <view class="block block-btn menu">
+        <button class="order-list" bindtap="goOrderList">
+            <image src="/images/form_light.svg"></image>
+            <text>我的订单</text>
+            <image class="go" src="/images/go_light.svg"></image>
+        </button>
+        <view class="order-statuses">
+            <block wx:for="{{['pending', 'processing', 'shipped', 'completed']}}" wx:key="">
+                <view class="order-status" data-status="{{item}}" bindtap="goOrderList">
+                    <view class="order-status-inner">
+                        <image src="/images/{{item}}.svg"></image>
+                        <text>{{orderStatuses[item]}}</text>
+                        <text wx:if="{{ordersInfo != undefined && ordersInfo[item] > 0}}" class="orders-count">{{ordersInfo[item]}}</text>
+                    </view>
+                </view>
+            </block>
+        </view>
+        <!-- W2W Extension, Name: w2w-advanced-coupon, Code: couponButton -->
+
+<!-- W2W Extension, Name: w2w-advanced-coupon, Code: couponButton -->
+        <!-- W2W Extension, Name: w2w-products-favor, Code: favorButton -->
+
+<!-- W2W Extension, Name: w2w-products-favor, Code: favorButton -->
+        <!-- W2W Extension, Name: w2w-advanced-address, Code: addressButton -->
+
+<!-- W2W Extension, Name: w2w-advanced-address, Code: addressButton -->
+    </view>
+    <view class="block block-btn about">
+        <!-- W2W Extension, Name: w2w-scan-to-login, Code: scanButton -->
+
+<!-- W2W Extension, Name: w2w-scan-to-login, Code: scanButton -->
+        <button class="contact-btn" open-type="contact" show-message-card="true" session-from="shop-about" send-message-title="商城个人页">
+            <image src="/images/service_light.svg"></image>
+            <text>联系我们</text>
+        </button>
+        <button class="feedback-btn" open-type="feedback">
+            <image src="/images/edit_light.svg"></image>
+            <text>意见反馈</text>
+        </button>
+        <button class="about-btn" bindtap="goAbout">
+            <image src="/images/about.svg"></image>
+            <text>关于 {{appName}}</text>
+        </button>
+    </view>
+
+    <template is="login-popup" data="{{show: isLoginPopup, userInfo: userInfo}}"></template>
+</view>

@@ -1,0 +1,99 @@
+<!--pages/cart/cart.wxml-->
+
+<!--**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */-->
+
+<import src="/vendor/ZanUI/stepper/index.wxml" />
+<import src="/vendor/ZanUI/toptips/index.wxml" />
+<import src="/templates/product-selected-attributes.wxml" />
+<import src="/templates/product-list.wxml" />
+<import src="/templates/login.wxml" />
+<import src="/templates/nav-bar.wxml" />
+
+<nav-bar custom-style="{{ {backgroundColor:'#96588a'} }}">
+    <view slot="content" class="nav-bar-wrapper-wrap">
+        <template is="nav-bar" data="{{pageTitle, navNarHeight: NAV_BAR_HEIGHT, backBtn: false}}"></template>
+    </view>
+    <view slot="placeholder" style="height:{{NAV_HEIGHT}}"></view>
+</nav-bar>
+
+<view class="container cart">
+
+    <block wx:if="{{_isLoginPopup}}">
+        <view class="need-login center">
+            <view class="login-popup">
+                <view class="login-popup-wrapper">
+                    <template is="login" data="{{userInfo: userInfo}}"></template>
+                </view>
+            </view>
+        </view>
+    </block>
+
+    <block wx:else>
+
+        <view wx:if="{{cart.cart_contents_count == 0}}" class="empty-cart center">
+            <text>购物车空空的</text>
+            <button class="go-shopping" bindtap="goShopping">随便逛逛</button>
+        </view>
+
+        <!-- 购物车列表开始 -->
+        <block wx:if="{{cart.cart_contents_count != 0}}">
+            <view class="cart-list">
+                <block wx:for="{{cart.cart}}" wx:key="">
+                    <view class="cart-item">
+
+                        <view class="delete-cart" data-cart-key="{{index}}" bindtap="deleteCartItem">
+                            <image src="/images/close.svg"></image>
+                        </view>
+
+                        <view class="product-image" data-id="{{item.product.id}}" data-name="{{item.product.name}}" bindtap="goProductDetail">
+                            <image src="{{item.product.images[0].shop_single}}" mode="aspectFit"></image>
+                        </view>
+
+                        <view class="cart-detail">
+                            <text class="product-title" data-id="{{item.product.id}}" data-name="{{item.product.name}}" bindtap="goProductDetail">{{item.product.name}}</text>
+                            <template wx:if="{{item.product.type == 'variation'}}" is="product-selected-attributes" data="{{selectedAttributes: item.variation, allAttributes: item.parent_attributes, selectedAllVariation: true}}" />
+                            <template is="zan-stepper" data="{{stepper: item.quantity, min: 0, componentId: index}}" />
+
+                            <view class="cart-item-price">
+                                <view class="line-subtotal">
+                                    <text class="currency">{{currency}}</text>
+                                    <text class="price">{{item.line_subtotal}}</text>
+                                </view>
+                            </view>
+                        </view>
+
+                    </view>
+                </block>
+            </view>
+        </block>
+        <!-- 购物车列表结束 -->
+
+        <!-- 底栏开始 -->
+        <view wx:if="{{cart.cart_contents_count != 0 && cart != null}}" class="checkout">
+            <view class="total">
+                <view class="cart-total">
+                    <text>合计：</text>
+                    <view class="price product-price">
+                        <text class="currency">{{currency}}</text>
+                        <text>{{cart.cart_subtotal}}</text>
+                    </view>
+                </view>
+                <view class="without-shipping">
+                    <text>不含运费</text>
+                </view>
+            </view>
+
+            <button class="zan-btn zan-btn--large btn btn-primary checkout-btn" bindtap="goCheckout">
+                <text>结算({{cart.cart_contents_count}})</text>
+            </button>
+        </view>
+        <!-- 底栏结束 -->
+    </block>
+
+    <template is="zan-toptips" data="{{ zanTopTips, top: NAV_HEIGHT }}"></template>
+</view>

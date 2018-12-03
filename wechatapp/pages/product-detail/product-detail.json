@@ -1,0 +1,7 @@
+{
+	"usingComponents": {
+		"htmltowxml": "/vendor/html2wxml/html2wxml",
+		"nav-bar": "/components/nav-bar/dist/index"
+	},
+	"navigationBarTitleText": ""
+}

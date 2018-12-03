@@ -1,0 +1,136 @@
+/* pages/index/index.wxss */
+
+/**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */
+
+page {
+    background-color: #f5f5f5;
+}
+
+/* 公告栏 */
+
+.zan-noticebar {
+    padding: 9px 10px;
+    line-height: 1.5;
+}
+
+.zan-noticebar view {
+    font-size: 12px;
+    color: #f60;
+    background-color: #fff7cc;
+}
+
+/* 搜索栏 */
+
+.search {
+    padding: 7px 5px;
+    background-color: #fff;
+}
+
+.search-input-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 7px 5px;
+    border: 1px solid #96588a;
+    border-radius: 3px;
+}
+
+.search-input-wrapper:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.search-label {
+    line-height: 1;
+    color: #b184a8;
+}
+
+.search-input-wrapper image {
+    width: 18px;
+    height: 18px;
+}
+
+.view-all {
+    border-radius: 4px;
+    color: #555;
+    background-color: #fff;
+    border-color: #ddd;
+    font-size: 16px;
+    margin: 10px;
+    margin-top: 0;
+    padding: 5px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* W2W Extension, Name: w2w-advanced-coupon, Code: indexCouponsStyle */
+
+/* W2W Extension, Name: w2w-advanced-coupon, Code: indexCouponsStyle */
+
+/* 文章 */
+
+.posts {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    background-color: #fff;
+}
+
+.posts-label {
+    padding: 8px 0;
+}
+
+.posts-label image {
+    position: relative;
+    width: 50px;
+    height: 12px;
+    padding: 7px 12px 7px 0;
+}
+
+.posts-label image::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border-right: 1px solid #ddd;
+    transform-origin: 0 0;
+    transform: scale(0.5, 0.5);
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.post-title-wrapper {
+    margin-left: 12px;
+    position: relative;
+    flex-grow: 1;
+    height: 35px;
+}
+
+.post-title {
+    opacity: 0;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 28rpx;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-height: 1;
+    transform: translateY(-50%);
+    transition: opacity 0.2s ease-in-out;
+}
+
+.post-title.active {
+    opacity: 1;
+    z-index: 1;
+}

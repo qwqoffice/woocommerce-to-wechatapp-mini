@@ -1,0 +1,77 @@
+/* pages/product-list/product-list.wxss */
+
+/**
+ * Project: WooCommerce微信小程序
+ * Description: 将WooCommerce商城接入微信小程序
+ * Author: 幻想小籽
+ * Organization: QwqOffice (https://www.qwqoffice.com)
+ */
+
+page {
+    background-color: #f5f5f5;
+}
+
+.container {
+    padding: 10px 0;
+}
+
+.empty-product.center text {
+    margin-top: -100px;
+}
+
+.zan-loadmore.zan-loadmore--nomore {
+    overflow: visible;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: -2px;
+    line-height: 10px;
+}
+
+.zan-loadmore.zan-loadmore--nomore .zan-loadmore__tips {
+    /*background-color: #fff;*/
+    top: -10px;
+}
+
+/* 购物车按钮 */
+
+.side-btn {
+    position: fixed;
+    right: 15px;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    padding: 7px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    overflow: visible;
+    z-index: 12;
+}
+
+.side-btn image {
+    width: 100%;
+    height: auto;
+}
+
+.go-top-btn {
+    bottom: 20px;
+}
+
+.cart-btn {
+    bottom: 65px;
+}
+
+.edit-favor-btn {
+    bottom: 110px;
+}
+
+.edit-favor-btn.in-edit {
+    background-color: #96588a;
+}
+
+.delete-favor-btn {
+    bottom: 155px;
+}
+
+/* W2W Extension, Name: w2w-products-filter-and-orderby, Code: filterStyle */
+
+/* W2W Extension, Name: w2w-products-filter-and-orderby, Code: filterStyle */
