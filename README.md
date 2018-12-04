@@ -1,4 +1,4 @@
-<p style="text-align:center"><img src="https://www.qwqoffice.com/attached/image/20180208/20180208232535_47069.png" alt="WooCommerce微信小程序" title="WooCommerce微信小程序" width="557"/></p>
+<p align="center"><img src="https://www.qwqoffice.com/attached/image/20180208/20180208232535_47069.png" alt="WooCommerce微信小程序" title="WooCommerce微信小程序" width="557"/></p>
 
 
 WooCommerce微信小程序 是使用开源程序 [WordPress](https://wordpress.org/) 和 [WooCommerce](https://woocommerce.com/) 作为后台的商城小程序。
@@ -35,6 +35,10 @@ WooCommerce微信小程序 是使用开源程序 [WordPress](https://wordpress.o
 * [安装指南](https://github.com/qwqoffice/woocommerce-to-wechatapp-mini/wiki/Installation-Guide) - 将你的WooCommerce网站接入到微信小程序
 * [常见问题解答](https://github.com/qwqoffice/woocommerce-to-wechatapp-mini/wiki/FAQ) - 大部分的问题都可以在这里找到答案，如无你的问题请[开启一个新的Issue](https://github.com/qwqoffice/woocommerce-to-wechatapp-mini/issues/new)
 * [源码下载及更新日志](https://github.com/qwqoffice/woocommerce-to-wechatapp-mini/releases)
+
+## 演示小程序
+注意：此演示为完整版的小程序
+<img src="https://www.qwqoffice.com/woocommerce-to-wechatapp/images/qrcode.jpg" alt="演示小程序" title="演示小程序" width="250"/>
 
 ## 联系微信
 <img src="https://www.qwqoffice.com/attached/image/20180208/20180208220742_15429.jpg" alt="联系微信" title="联系微信" width="250"/>
