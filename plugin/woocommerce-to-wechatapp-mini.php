@@ -102,9 +102,6 @@ if ( ! class_exists( 'WooCommerce_To_WeChatApp' ) ) {
 			// 当前选项卡、修改AppID或AppSecret时删除AccessToken缓存
 			add_filter( 'pre_update_option_w2w-settings', array( $this, 'pre_update_option' ), 10, 3 );
 			
-			// 处理微信支付证书文件
-			add_filter( 'pre_update_option_w2w-settings', array( $this, 'handle_wxpay_cert' ), 10, 3 );
-			
 			$this->wxapi = new W2W_Weixin_API();
 			$this->template_message = new W2W_Template_Message();
 		}
@@ -411,51 +408,6 @@ if ( ! class_exists( 'WooCommerce_To_WeChatApp' ) ) {
 				&& ( $value['appid'] != $old_value['appid'] || $value['appsecret'] != $old_value['appsecret'] ) ) {
 				
 				delete_option( 'w2w-access_token' );
-			}
-			
-			return $value;
-		}
-		
-		// 处理微信支付证书文件
-		public function handle_wxpay_cert( $value, $old_value, $option ) {
-			
-			$uploadedfile = $_FILES['w2w_wxpay_cert'];
-			if( is_null( $uploadedfile ) ) {
-				return;
-			}
-
-			$upload_dir = wp_upload_dir();
-			$w2w_cert_dir = $upload_dir['basedir'] . '/w2w_wxpay_cert/';
-			if( ! is_dir( $w2w_cert_dir ) ) mkdir( $w2w_cert_dir, 0700, true );
-			
-			if( $uploadedfile['error'] == 0 ) {
-				$zip_filename = W2W_Util::get_random() . '.zip';
-				$zip_filepath = $w2w_cert_dir . $zip_filename;
-				move_uploaded_file( $uploadedfile['tmp_name'], $zip_filepath );
-				
-				WP_Filesystem();
-				$result = unzip_file( $zip_filepath, $w2w_cert_dir );
-				foreach( glob( $w2w_cert_dir . '*' ) as $f ) {
-					if( $f ==  $w2w_cert_dir . 'apiclient_cert.pem' || $f == $w2w_cert_dir . 'apiclient_key.pem' ) continue;
-					unlink( $f );
-				}
-				
-				if( ! is_wp_error( $result ) ) {
-					$cert_filename = W2W_Util::get_random() . '.pem';
-					$key_filename = W2W_Util::get_random() . '.pem';
-					rename( $w2w_cert_dir . 'apiclient_cert.pem', $w2w_cert_dir . $cert_filename );
-					rename( $w2w_cert_dir . 'apiclient_key.pem', $w2w_cert_dir . $key_filename );
-					chmod ( $w2w_cert_dir . $cert_filename, 0600 );
-					chmod ( $w2w_cert_dir . $key_filename, 0600 );
-					
-					update_option( 'w2w-wxpay-cert', array(
-						'cert_path' => $w2w_cert_dir . $cert_filename,
-						'key_path' => $w2w_cert_dir . $key_filename
-					) );
-				}
-				else {
-					W2W()->log( 'error', '证书文件解压失败：' . json_encode( $result ) );
-				}
 			}
 			
 			return $value;
