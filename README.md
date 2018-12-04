@@ -1,7 +1,13 @@
-<p align="center"><img src="https://www.qwqoffice.com/attached/image/20180208/20180208232535_47069.png" alt="WooCommerce微信小程序" title="WooCommerce微信小程序" width="557"/></p>
+<p align="center">
+	<img src="https://www.qwqoffice.com/attached/image/20180208/20180208232535_47069.png" alt="WooCommerce微信小程序" title="WooCommerce微信小程序" width="557"/>
+</p>
 
 
 WooCommerce微信小程序 是使用开源程序 [WordPress](https://wordpress.org/) 和 [WooCommerce](https://woocommerce.com/) 作为后台的商城小程序。
+
+迷你版是WooCommerce微信小程序的开源版本。
+
+完整版请参考：https://www.qwqoffice.com/article.php?mod=view&tid=30
 
 ## 功能特性
 
@@ -37,19 +43,25 @@ WooCommerce微信小程序 是使用开源程序 [WordPress](https://wordpress.o
 * [源码下载及更新日志](https://github.com/qwqoffice/woocommerce-to-wechatapp-mini/releases)
 
 ## 演示小程序
+
 注意：此演示为完整版的小程序
+
 <img src="https://www.qwqoffice.com/woocommerce-to-wechatapp/images/qrcode.jpg" alt="演示小程序" title="演示小程序" width="250"/>
 
 ## 联系微信
+
 <img src="https://www.qwqoffice.com/attached/image/20180208/20180208220742_15429.jpg" alt="联系微信" title="联系微信" width="250"/>
 
 ## 微信交流群
+
 <img src="https://www.qwqoffice.com/attached/image/20181204/20181204141642_85264.png" alt="微信交流群" title="微信交流群" width="280"/>
 
 ## 参考项目
+
 * ZanUI [https://github.com/youzan/zanui-weapp](https://github.com/youzan/zanui-weapp)
 * html2wxml [https://github.com/qwqoffice/html2wxml](https://github.com/qwqoffice/html2wxml)
 
 ## 赞赏
+
 <img src="https://www.qwqoffice.com/attached/image/20181204/20181204141907_46177.png" alt="赞赏" title="赞赏" width="280"/>
 
