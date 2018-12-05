@@ -54,7 +54,7 @@ WooCommerce微信小程序 是使用开源程序 [WordPress](https://wordpress.o
 
 ## 微信交流群
 
-<img src="https://www.qwqoffice.com/attached/image/20181204/20181204141642_85264.png" alt="微信交流群" title="微信交流群" width="280"/>
+微信群已满100人无法使用群二维码进群，请扫描上方二维码添加我为好友，然后我再拉你进群
 
 ## 参考项目
 
