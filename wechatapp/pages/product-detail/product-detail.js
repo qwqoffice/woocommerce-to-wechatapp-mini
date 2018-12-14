@@ -654,7 +654,6 @@ Page(Object.assign({}, Zan.Stepper, Zan.Tab, Zan.TopTips, app.Methods, {
                     variationCount: variationCount,
                     visibleAttributeCount: visibleAttributeCount,
                     totalStock: totalStock,
-                    ['productTabList[1].title']: '评价(' + product.rating_count + ')',
                     /* W2W Extension, Name: w2w-products-favor, Code: cartPosition */
 
                     /* W2W Extension, Name: w2w-products-favor, Code: cartPosition */

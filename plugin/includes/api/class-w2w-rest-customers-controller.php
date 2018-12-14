@@ -286,7 +286,6 @@ class W2W_REST_Customers_Controller extends WC_REST_Controller {
 		$statuses = array(
 			'pending',
 			'processing',
-			'shipped',
 			'completed',
 		);
 		

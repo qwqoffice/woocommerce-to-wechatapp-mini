@@ -25,7 +25,7 @@
             <image class="go" src="/images/go_light.svg"></image>
         </button>
         <view class="order-statuses">
-            <block wx:for="{{['pending', 'processing', 'shipped', 'completed']}}" wx:key="">
+            <block wx:for="{{['pending', 'processing', 'completed']}}" wx:key="">
                 <view class="order-status" data-status="{{item}}" bindtap="goOrderList">
                     <view class="order-status-inner">
                         <image src="/images/{{item}}.svg"></image>

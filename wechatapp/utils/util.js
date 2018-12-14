@@ -239,8 +239,7 @@ function inArray(search, array) {
 function getOrderStatusObj() {
     return {
         pending: '待付款',
-        processing: '待发货',
-        shipped: '待收货',
+        processing: '处理中',
         'on-hold': '保留',
         completed: '已完成',
         cancelled: '已取消',

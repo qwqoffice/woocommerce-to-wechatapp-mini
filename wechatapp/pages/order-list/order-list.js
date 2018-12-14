@@ -29,11 +29,7 @@ Page(Object.assign({}, Zan.Tab, app.Methods, {
             },
             {
                 id: 'processing',
-                title: '待发货'
-            },
-            {
-                id: 'shipped',
-                title: '待收货'
+                title: '处理中'
             },
             {
                 id: 'completed',
