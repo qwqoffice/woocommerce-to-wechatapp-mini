@@ -1,0 +1,13 @@
+@charset "UTF-8";
+@font-face {
+	font-family: W2W;
+	src:  url(../fonts/W2W.eot?wrbsg0);
+	src:  url(../fonts/W2W.eot?wrbsg0#iefix) format("embedded-opentype"), url(../fonts/W2W.ttf?wrbsg0) format("truetype"), url(../fonts/W2W.woff?wrbsg0) format("woff"), url(../fonts/W2W.svg?wrbsg0#W2W) format("svg");
+	font-weight: 40.;
+	font-style: normal;
+}
+
+#adminmenu #toplevel_page_w2w-settings .dashicons-before::before {
+    font-family: W2W !important;
+    content: '\e901'
+}
