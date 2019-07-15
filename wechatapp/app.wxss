@@ -13,7 +13,9 @@ page, view {
     color: #444;
     font-size: 30rpx;
 }
-
+image {
+	height: 0;
+}
 view {
     word-break: break-all;
 }

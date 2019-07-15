@@ -11,9 +11,9 @@ var system = require('utils/system.js');
 
 App({
     data: {
-        version: '1.7.1',
-        versionDate: '20181204',
-        siteURL: 'http://localhost/wordpress/',
+        version: '1.8',
+        versionDate: '20190715',
+		siteURL: 'http://localhost/wordpress',
         name: 'WooCommerce微信小程序',
         logo: '/images/woo-logo.png',
         apiPath: 'wp-json/w2w/v1/',
@@ -306,7 +306,7 @@ App({
                         }
                     });
                 } else {
-                    if (paymentData.fail) paymentData.fail({});
+                    if (paymentData.fail) paymentData.fail({errMsg:data.msg});
                 }
 
             }

@@ -26,7 +26,7 @@
 	"tabBar": {
 		"color": "#707070",
 		"selectedColor": "#96588a",
-		"borderStyle": "#707070",
+		"borderStyle": "black",
 		"list": [
 			{
 				"selectedIconPath": "images/home_fill_light.png",
@@ -54,5 +54,6 @@
 			}
 		]
 	},
-	"debug": false
+	"debug": false,
+	"sitemapLocation": "sitemap.json"
 }

@@ -18,7 +18,7 @@ Page(Object.assign({}, Zan.TopTips, app.Methods, {
         currency: app.data.currency,
         /* W2W Extension, Name: w2w-advanced-coupon, Code: couponSelectMode */
 
-/* W2W Extension, Name: w2w-advanced-coupon, Code: couponSelectMode */
+        /* W2W Extension, Name: w2w-advanced-coupon, Code: couponSelectMode */
         address: null,
         cart: null,
         isShippingPopup: false,
@@ -187,7 +187,7 @@ Page(Object.assign({}, Zan.TopTips, app.Methods, {
                 order_param, {
                     w2w_session: app.data.w2w_session,
                     order_comments: e.detail.value.comment,
-					form_id: e.detail.formId
+                    form_id: e.detail.formId
                 }
             );
 
@@ -273,12 +273,14 @@ Page(Object.assign({}, Zan.TopTips, app.Methods, {
                 // 订单提交失败
                 else if (data.result == 'failure') {
 
-                    if (data.messages) {
+                    if (data.messages != '') {
+						console.log('asd');
                         var exp = /\<li\>(.*?)\<\/li\>/ig,
                             result,
                             errors = [];
                         while ((result = exp.exec(data.messages)) != null) {
-                            errors.push(result[1]);
+                            console.log(result[1]);
+                            errors.push(result[1].trim());
                         }
                         this.showZanTopTips(errors);
                     } else {
