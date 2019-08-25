@@ -146,7 +146,7 @@ if ( ! class_exists( 'WooCommerce_To_WeChatApp' ) ) {
 		// 是否微信内访问
 		public function is_in_miniprogram() {
 			
-			return ! empty( $_SERVER['HTTP_USER_AGENT'] ) && preg_match( '/servicewechat\.com/i', $_SERVER['HTTP_REFERER'] );
+			return ! empty( $_SERVER['HTTP_USER_AGENT'] ) && ! empty( $_SERVER['HTTP_REFERER'] ) && preg_match( '/servicewechat\.com/i', $_SERVER['HTTP_REFERER'] );
 		}
 		
 		// Woocommerce插件依赖

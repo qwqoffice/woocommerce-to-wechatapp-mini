@@ -19,7 +19,8 @@ class W2W_WC_API extends WC_API {
 	 * @since 2.0
 	 */
 	public function __construct() {
-		parent::__construct();
+		//parent::__construct();
+		$this->rest_api_init();
 
 		// Add query vars.
 		add_filter( 'query_vars', array( $this, 'add_query_vars' ), 0 );
@@ -112,7 +113,7 @@ class W2W_WC_API extends WC_API {
 	 * Init WP REST API.
 	 * @since 2.6.0
 	 */
-	private function rest_api_init() {
+	public function rest_api_init() {
 		global $wp_version;
 
 		// REST API was included starting WordPress 4.4.
