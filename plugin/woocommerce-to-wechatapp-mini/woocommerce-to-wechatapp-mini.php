@@ -2,12 +2,12 @@
 /**
  * Plugin Name: WooCommerce 微信小程序迷你版
  * Plugin URI: https://www.qwqoffice.com/article-30.html
- * Description: 将 WooCommerce 商城接入微信小程序
- * Version: 1.8
+ * Description: 使用WooCommerce作为后台的商城小程序，与WooCommerce完美整合，无需编程技能，最快5分钟即可完成接入
+ * Version: 1.9
  * Author: QwqOffice
  * Author URI: https://www.qwqoffice.com/
  * WC requires at least: 3.0.0
- * WC tested up to: 3.6.5
+ * WC tested up to: 3.7.0
 **/
 
 if ( ! class_exists( 'WooCommerce_To_WeChatApp' ) ) {
