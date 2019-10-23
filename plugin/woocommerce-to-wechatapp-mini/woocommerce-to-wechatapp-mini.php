@@ -3,11 +3,11 @@
  * Plugin Name: WooCommerce 微信小程序迷你版
  * Plugin URI: https://www.qwqoffice.com/article-30.html
  * Description: 使用WooCommerce作为后台的商城小程序，与WooCommerce完美整合，无需编程技能，最快5分钟即可完成接入
- * Version: 1.9
+ * Version: 1.9.1
  * Author: QwqOffice
  * Author URI: https://www.qwqoffice.com/
  * WC requires at least: 3.0.0
- * WC tested up to: 3.7.0
+ * WC tested up to: 3.7.1
 **/
 
 if ( ! class_exists( 'WooCommerce_To_WeChatApp' ) ) {
@@ -100,11 +100,12 @@ if ( ! class_exists( 'WooCommerce_To_WeChatApp' ) ) {
 				// 自定义结算字段
 				add_filter( 'woocommerce_checkout_fields' , array( $this, 'override_checkout_fields' ), 99999 );
 				
-				// 仅对微信小程序开启微信支付
-				add_filter( 'woocommerce_available_payment_gateways', array( $this, 'wxpay_only_for_wxapp' ) );
-				
 				// 兼容WC3.6.0新增的frontend判断
 				add_filter( 'woocommerce_is_rest_api_request', '__return_false' );
+			}
+			else {
+				// 仅对微信小程序开启微信支付
+				add_filter( 'woocommerce_available_payment_gateways', array( $this, 'wxpay_only_for_wxapp' ) );
 			}
 			
 			// 当前选项卡、修改AppID或AppSecret时删除AccessToken缓存
