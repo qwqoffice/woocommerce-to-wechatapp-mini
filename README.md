@@ -9,7 +9,7 @@ WooCommerce微信小程序 是使用开源程序 [WordPress](https://wordpress.o
 
 迷你版是WooCommerce微信小程序的开源版本。
 
-完整版请参考：https://www.qwqoffice.com/article.php?mod=view&tid=30
+完整版请参考：https://woocommerce-app.com
 
 ## 功能特性
 
